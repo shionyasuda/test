@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+        p {
+          height: 100px; /* 高さを指定 */
+          background-color: #cfc9c9; /* 背景色を指定 */
+          padding: 10px; /* 余白を指定 */
+        }
+    </style>
+
+	<title>Drag and Drop Example</title>
+	<style>
+		.drag-element {
+			width: 100px;
+			height: 100px;
+			background-color: #ff9999;
+			border: 2px solid black;
+			position: absolute;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 24px;
+			font-weight: bold;
+			cursor: move;
+		}
+		.group1 {
+			background-color: #b3d9ff;
+		}
+		.group2 {
+			background-color: #ffe6b3;
+		}
+        .group3 {
+			background-color: #ccf7c9;
+		}
+	</style>
+</head>
+<body>
+	<div id="drag-element-1" class="drag-element group1" style="top: 194px; left: 245px;">I</div>
+	<div id="drag-element-2" class="drag-element group1" style="top: 221px; left: 97px;">She</div>
+	<div id="drag-element-3" class="drag-element group1" style="top: 335px; left: 233px;">They</div>
+	<div id="drag-element-4" class="drag-element group1" style="top: 350px; left: 80px;">We</div>
+	<div id="drag-element-5" class="drag-element group1" style="top: 298px; left: 372px;">He</div>
+  
+	<div id="drag-element-1" class="drag-element group2" style="top: 191px; left: 1410px;">sky</div>
+	<div id="drag-element-2" class="drag-element group2" style="top: 368px; left: 1319px;">apples</div>
+	<div id="drag-element-3" class="drag-element group2" style="top: 242px; left: 1286px;">bags</div>
+	<div id="drag-element-4" class="drag-element group2" style="top: 337px; left: 1169px;">clothes</div>
+	<div id="drag-element-5" class="drag-element group2" style="top: 177px; left: 1158px;">fish</div>
+
+    <div id="drag-element-1" class="drag-element group3" style="top: 207px; left:627px;">like</div>
+	<div id="drag-element-2" class="drag-element group3" style="top: 185px; left:753px;">eat</div>
+	<div id="drag-element-3" class="drag-element group3" style="top: 206px; left:881px;">panch</div>
+	<div id="drag-element-4" class="drag-element group3" style="top: 331px; left:854px;">drops</div>
+	<div id="drag-element-5" class="drag-element group3" style="top: 357px; left:699px;">cooks</div>
+
+
+	<script>
+		// ドラッグされる要素を取得
+		var dragElements = document.querySelectorAll(".drag-element");
+
+		// マウスが要素内で押されたとき、マウス座標と要素の座標の差分を取得
+		var mouseX;
+		var mouseY;
+		var elementX;
+		var elementY;
+		var currentDragElement;
+		for (var i = 0; i < dragElements.length; i++) {
+			dragElements[i].addEventListener("mousedown", function(e) {
+				mouseX = e.clientX;
+				mouseY = e.clientY;
+				elementX = this.offsetLeft;
+				elementY = this.offsetTop;
+				currentDragElement = this;
+				document.addEventListener("mousemove", mouseMoveHandler);
+				document.addEventListener("mouseup", mouseUpHandler);
+			});
+		}
+
+		// マウスが移動したとき、要素を移動する
+		function mouseMoveHandler(e) {
+			var dx = e.clientX - mouseX;
+			var dy = e.clientY - mouseY;
+			currentDragElement.style.left = elementX + dx + "px";
+			currentDragElement.style.top = elementY + dy + "px";
+		}
+
+		// マウスが離されたとき、マウス移動とマウスアップのイベントリスナーを削除する
+		function mouseUpHandler(e) {
+			document.removeEventListener("mousemove", mouseMoveHandler);
+			document.removeEventListener("mouseup", mouseUpHandler);
+		}
+	</script>
+
+<p style="text-align: center; vertical-align: middle; line-height: 4; font-size: 24px">英文作れるかな</p>
+<div id="text" style="position: absolute; top: 500px; left:15px; ; font-size: 20px;">問題1 : 私はりんごが好きです</div>
+<div id="text" style="position: absolute; top: 650px; left:15px; ; font-size: 15px; font-weight:200">__________________________________________________________________________.</div>
+
+<div id="text" style="position: absolute; top: 680px; left:15px; ; font-size: 20px;">問題2 : 彼は魚を料理します</div>
+<div id="text" style="position: absolute; top: 830px; left:15px; ; font-size: 15px;">__________________________________________________________________________.</div>
+
+<div id="text" style="position: absolute; top: 860px; left:15px; ; font-size: 20px;">問題3 : 彼女はカバンを落とします。</div>
+<div id="text" style="position: absolute; top: 1000px; left:15px; ; font-size: 15px;">__________________________________________________________________________.</div>
+
+
+
+
+</body>
+</html>
